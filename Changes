@@ -1,5 +1,7 @@
 Revision history for Mojolicious-Plugin-AccessLog
 
+0.003   2015-02-02
+
 0.002   2014-05-31
         Fix test for Mojolicious 5.0.
 
