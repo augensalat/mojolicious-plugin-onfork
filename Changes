@@ -1,7 +1,8 @@
 Revision history for Mojolicious-Plugin-AccessLog
 
 0.003   2015-02-03
-        Notice about srand() in Mojolicious 5.76.
+        - Notice about srand() in Mojolicious 5.76.
+        - Give hypnotoad time to come up in test.
 
 0.002   2014-05-31
         Fix test for Mojolicious 5.0.

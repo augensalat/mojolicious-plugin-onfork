@@ -43,11 +43,11 @@ use Mojolicious::Lite;
 
 plugin Config => {
     default => {
-	hypnotoad => {
-	    accepts => 1,
-	    listen => ['http://127.0.0.1:$port1', 'http://127.0.0.1:$port2'],
-	    workers => 2
-	}
+        hypnotoad => {
+            accepts => 1,
+            listen => ['http://127.0.0.1:$port1', 'http://127.0.0.1:$port2'],
+            workers => 2
+        }
     }
 };
 
@@ -120,11 +120,11 @@ use Mojolicious::Lite;
 
 plugin Config => {
     default => {
-	hypnotoad => {
-	    accepts => 1,
-	    listen => ['http://127.0.0.1:$port1', 'http://127.0.0.1:$port2'],
-	    workers => 2
-	}
+        hypnotoad => {
+            accepts => 1,
+            listen => ['http://127.0.0.1:$port1', 'http://127.0.0.1:$port2'],
+            workers => 2
+        }
     }
 };
 
@@ -196,8 +196,16 @@ sleep 1
     );
 
 sub _pid {
-    return undef unless open my $file, '<', catdir($dir, 'hypnotoad.pid');
-    my $pid = <$file>;
-    chomp $pid;
-    return $pid;
+    for (my $n = 0; $n < 10; ++$n) {
+        if (open my $file, '<', catdir($dir, 'hypnotoad.pid')) {
+            my $pid = <$file>;
+            chomp $pid;
+            return $pid;
+        }
+        else {
+            note "waiting for hypnotoad";
+            sleep 1;
+        }
+    }
+    die "cannot open hypnotoad.pid: $!";
 }
