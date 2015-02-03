@@ -10,6 +10,8 @@ use Mojo::IOLoop::Server;
 use Mojo::UserAgent;
 use Mojo::Util 'spurt';
 
+require Mojolicious;
+
 # Disable IPv6 and libev
 BEGIN {
   $ENV{MOJO_NO_IPV6} = 1;
@@ -82,7 +84,13 @@ ok $tx->is_finished, 'transaction is finished';
 is $tx->res->code, 200, 'right status';
 ($pid[1], $rand[1]) = split ':', $tx->res->body, 2;
 isnt $pid[1], $pid[0], 'second port was served by other worker';
-is $rand[1], $rand[0], 'both workers return same random value';
+if ($rand[1] eq $rand[0]) {
+    pass 'both workers return same random value';
+}
+else {
+    diag "The currently installed Mojolicious ($Mojolicious::VERSION) " .
+         "seems to have srand() builtin.";
+}
 
 # Same result
 $tx = $ua->get("http://127.0.0.1:$port1/");
@@ -98,7 +106,13 @@ ok $tx->is_finished, 'transaction is finished';
 is $tx->res->code, 200, 'right status';
 ($pid[3], $rand[3]) = split ':', $tx->res->body, 2;
 is $pid[3], $pid[3], '2nd request on 2nd port served by 2nd worker';
-is $rand[3], $rand[2], 'both workers return same random value';
+if ($rand[3] eq $rand[2]) {
+    pass 'both workers return same random value';
+}
+else {
+    diag "The currently installed Mojolicious ($Mojolicious::VERSION) " .
+         "seems to have srand() builtin.";
+}
 
 # Update script
 spurt <<EOF, $script;

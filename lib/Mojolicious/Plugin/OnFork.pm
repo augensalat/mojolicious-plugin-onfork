@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 use Mojo::IOLoop;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 sub register {
     my $code = $_[2];
@@ -26,7 +26,7 @@ Mojolicious::Plugin::OnFork - Do Something Whenever a Worker Starts
 
 =head1 VERSION
 
-Version 0.002
+Version 0.003
 
 =head1 SYNOPSIS
 
@@ -47,12 +47,16 @@ All this plugin actually does is
 
   Mojo::IOLoop->timer(0 => $code)
 
-The motivation for this plugin was, that L<hypnotoad> does not call
-L<perlfunc/srand> after a L<perlfunc/fork>, so your workers probably all
-get the same sequence of "random" numbers from L<perlfunc/rand>.
-The L<Mojolicious> maintainers are reluctant to fix this problem.
-OTOH I want to hide gory Mojolicious guts like the above code from my
-applications.
+The motivation for this plugin was, that L<hypnotoad> does not guarantee
+to call L<perlfunc/srand> after a L<perlfunc/fork>, so worker processes
+might all get the same sequence of "random" numbers from L<perlfunc/rand>.
+
+Starting with L<Mojolicious> 5.76 C<srand> is actually called after a fork,
+but this fact is not officially documented and according to the author can
+be removed in the future without any previous notice.
+
+As a consequence depending on the Mojolicious version and for this use
+case C<srand> might be called twice after a worker starts.
 
 =head1 METHODS
 
@@ -74,7 +78,7 @@ Bernhard Graf <graf(a)cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2014 - 2012 Bernhard Graf
+Copyright (C) 2012 - 2015 Bernhard Graf
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
