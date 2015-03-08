@@ -2,7 +2,7 @@ NAME
     Mojolicious::Plugin::OnFork - Do Something Whenever a Worker Starts
 
 VERSION
-    Version 0.003
+    Version 0.004
 
 SYNOPSIS
       # Mojolicious

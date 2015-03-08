@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 use Mojo::IOLoop;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 sub register {
     my $code = $_[2];
@@ -26,7 +26,7 @@ Mojolicious::Plugin::OnFork - Do Something Whenever a Worker Starts
 
 =head1 VERSION
 
-Version 0.003
+Version 0.004
 
 =head1 SYNOPSIS
 
