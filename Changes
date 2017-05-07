@@ -1,7 +1,10 @@
 Revision history for Mojolicious-Plugin-OnFork
 
+0.005   2017-05-08
+        - Remove hypnotoad/srand test
+
 0.004   2015-03-08
-	- Fix Changes file (reneeb)
+        - Fix Changes file (reneeb)
 
 0.003   2015-02-03
         - Notice about srand() in Mojolicious 5.76.

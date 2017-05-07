@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Carp 'croak';
 use Mojo::IOLoop;
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 sub register {
     my $code = $_[2];
@@ -26,7 +26,7 @@ Mojolicious::Plugin::OnFork - Do Something Whenever a Worker Starts
 
 =head1 VERSION
 
-Version 0.004
+Version 0.005
 
 =head1 SYNOPSIS
 
@@ -78,7 +78,7 @@ Bernhard Graf <graf(a)cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2012 - 2015 Bernhard Graf
+Copyright (C) 2012 - 2017 Bernhard Graf
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
